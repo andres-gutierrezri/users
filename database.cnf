@@ -1,0 +1,8 @@
+# my.cnf
+[client]
+database = CRUD_Django
+user = root
+# password = 
+host = 127.0.0.1
+port = 3306
+default-character-set = utf8
