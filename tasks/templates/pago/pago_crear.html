@@ -1,0 +1,20 @@
+{% extends "base.html" %}  
+
+{% block titulo %}
+    Editar detalle de pago
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            Editar Información del detalle de pago
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">Datos del detalle de pago </h4>
+            {% include 'pago/formulario_pago.html' %}
+        </div>
+        <div class="card-footer text-muted">
+            
+        </div>
+    </div>
+{% endblock %}

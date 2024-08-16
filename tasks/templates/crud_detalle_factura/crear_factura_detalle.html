@@ -1,0 +1,20 @@
+{% extends "base.html" %}  
+
+{% block titulo %}
+    Agregar Nuevo  detalle de  factura
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            Crear detalle de  factura 
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">Datos del detalle de factura </h4>
+            {% include 'crud_detalle_factura/formulario_factura_detalle.html' %}
+        </div>
+        <div class="card-footer text-muted">
+            
+        </div>
+    </div>
+{% endblock %}

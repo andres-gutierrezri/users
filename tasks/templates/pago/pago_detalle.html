@@ -1,0 +1,54 @@
+{% extends "base.html" %}  
+
+{% block titulo %}
+    Lista de pagos
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <a name="" id="" class="btn btn-success" href="{% url 'pago_insertar' %}" role="button">Agregar Nueva  pagos </a>
+        </div>
+        
+        <div class="card-body">
+            <h4 class="card-title">pago </h4>
+            
+            <div class="table-responsive">
+                <table class="table align-middle table-hover table-bordered table table-striped">
+                    <thead>
+                        <tr class="align-bottom">
+                            <th scope="col">id pago</th>
+                            <th scope="col">numero de pago</th>
+                            <th scope="col">forma de pago</th>
+                            <th scope="col">cantidad</th>
+                            <th scope="col">fecha</th>
+                            <th scope="col">total</th>
+                            <th scope="col">editar</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pago_detalle in pago_detalle %}
+                        <tr class="">
+                            <td scope="row">{{ pago_detalle.id }}</td>
+                            <td>{{ pago_detalle.numero_pago}}</td>
+                            <td>{{ pago_detalle.forma_de_pago }}</td>
+                            <td>{{ pago_detalle.cantidad }}</td>
+                            <td>{{ pago_detalle.fecha }}</td>
+                            <td>{{ pago_detalle.total }}</td>
+                            <td>
+                                <a name="" id="" class="btn btn-info" href="{% url 'pago_editar' pago_detalle.id %}" role="button">Editar</a>
+                                <a name="" id="" class="btn btn-danger" href="{% url 'pago_eliminar' pago_detalle.id %}" role="button">Borrar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div class="card-footer text-muted">
+            
+        </div>
+    </div>
+{% endblock %}

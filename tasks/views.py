@@ -5,7 +5,9 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from .models import Task
+from .models import Task, Factura, Detalle_Factura, Pago
+from .forms import FacturaForm, FacturaDetalleForm, PagoDetalleForm
+
 
 from .forms import TaskForm
 
@@ -107,3 +109,78 @@ def delete_task(request, task_id):
     if request.method == 'POST':
         task.delete()
         return redirect('tasks')
+    
+def factura(request):
+    factura = Factura.objects.all()
+    return render(request, 'factura.html', {'factura': factura})
+
+def crear(request):
+    formulario = FacturaForm(request.POST or None, request.FILES or None)
+    if formulario.is_valid():
+        formulario.save()
+        return redirect('facturas')
+    return render(request, 'crear_factura.html', {'formulario': formulario})
+
+def editar(request, id):
+    factura = Factura.objects.get(id=id)
+    formulario = FacturaForm(request.POST or None, request.FILES or None, instance=factura)
+    if formulario.is_valid() and request.POST:
+        formulario.save()
+        return redirect('facturas')
+    return render(request, 'editar.html', {'formulario': formulario})
+
+def eliminar(request, id):
+    factura = Factura.objects.get(id=id)
+    factura.delete()
+    return redirect('facturas')
+
+# leer  los  datos 
+def detalle_factura(request):
+    factura_detalle = Detalle_Factura.objects.all()
+    return render(request, 'crud_detalle_factura/factura_detalle.html', {'factura_detalle': factura_detalle})
+
+def detalle_factura_crear(request):
+    formulario_pago = FacturaDetalleForm(request.POST or None, request.FILES or None)
+    if formulario_pago.is_valid():
+        formulario_pago.save()
+        return redirect('factura_detalle')
+    return render(request, 'crud_detalle_factura/crear_factura_detalle.html', {'formulario_pago': formulario_pago})
+
+def detalle_factura_editar(request, id):
+    factura_detalle = Detalle_Factura.objects.get(id=id)
+    formulario_pago = FacturaDetalleForm(request.POST or None, request.FILES or None, instance=factura_detalle)
+    if formulario_pago.is_valid() and request.POST:
+       formulario_pago.save()
+       return redirect('factura_detalle')
+    return render(request, 'crud_detalle_factura/editar_factura_detalle.html', {'formulario_pago': formulario_pago})
+
+def detalle_factura_eliminar(request, id):
+    factura_detalle = Detalle_Factura.objects.get(id=id)
+    factura_detalle.delete()
+    return redirect('factura_detalle')
+
+# leer  los  datos  de pago
+def pago_consulta(request):
+    pago_detalle = Pago.objects.all()
+    return render(request, 'pago/pago_detalle.html', {'pago_detalle': pago_detalle})
+
+def pago_insertar(request):
+    formulario_pago = PagoDetalleForm(request.POST or None, request.FILES or None)
+    if formulario_pago.is_valid():
+        formulario_pago.save()
+        return redirect('pago_consulta')
+    return render(request, 'pago/pago_crear.html', {'formulario_pago': formulario_pago})
+
+def pago_actualizar(request, id):
+    pago_detalle = Pago.objects.get(id=id)
+    formulario_pago = PagoDetalleForm(request.POST or None, request.FILES or None, instance=pago_detalle)
+    if formulario_pago.is_valid() and request.POST:
+       formulario_pago.save()
+       return redirect('pago_consulta')
+    return render(request, 'pago/editar_pago.html', {'formulario_pago': formulario_pago})
+
+def pago_eliminar(request, id):
+    pago_detalle = Pago.objects.get(id=id)
+    pago_detalle.delete()
+    return redirect('pago_consulta')
+

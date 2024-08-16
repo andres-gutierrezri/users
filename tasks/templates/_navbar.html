@@ -30,6 +30,15 @@
           <a href="{% url 'create_task' %}" class="nav-link">Create Task</a>
         </li>
         <li class="nav-item">
+          <a href="{% url 'facturas' %}" class="nav-link">Facturas</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'factura_detalle' %}" class="nav-link">detalle de Facturas</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'pago_consulta' %}" class="nav-link">pago</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/logout">Logout</a>
         </li>
         {% else %}

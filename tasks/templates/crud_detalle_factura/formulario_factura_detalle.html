@@ -1,0 +1,19 @@
+<form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <!--sacamos formulario_detalle de editar en las vistas -->
+    {% for campo in formulario_detalle %}
+      <div class="mb-3">
+        <label for="" class="form-label">{{ campo.label }}:</label>
+        {% if campo.field.widget.input_type == 'file' and campo.value %}
+          <br/>
+          <input type="file" class="form-control" name="{{ campo.name }}" id="" aria-describedby="helpId">
+        {% else %}
+          <input type="{{ campo.field.widget.input_type }}" class="form-control" name="{{ campo.name }}" id="" aria-describedby="helpId" placeholder="{{ campo.label }}" value="{{ campo.value | default:'' }}">
+        {% endif %}
+      </div>
+      <div class="col-12 help-text"> {{ campo.errors }} </div>
+    {% endfor %}
+    <!-- sacamos  factura_detalle  de las urls-->
+    <input name="" id="" class="btn btn-success" type="submit" value="Enviar Información">
+    <a name="" id="" class="btn btn-danger" href="{% url 'factura_detalle' %}" role="button">Cancelar</a>
+  </form>

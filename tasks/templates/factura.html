@@ -1,0 +1,56 @@
+{% extends "base.html" %}  
+
+{% block titulo %}
+    Lista de Facturas
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <a name="" id="" class="btn btn-success" href="{% url 'factura_crear' %}" role="button">Agregar Nueva  factura </a>
+        </div>
+        
+        <div class="card-body">
+            <h4 class="card-title">facturas </h4>
+            
+            <div class="table-responsive">
+                <table class="table align-middle table-hover table-bordered table table-striped">
+                    <thead>
+                        <tr class="align-bottom">
+                            <th scope="col">id factura</th>
+                            <th scope="col">numero factura</th>
+                            <th scope="col">nombre</th>
+                            <th scope="col">direccion</th>
+                            <th scope="col">telefono</th>
+                            <th scope="col">fecha nacimiento</th>
+                            <th scope="col">genero</th>
+                            <th scope="col">editar</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for factura in factura %}
+                        <tr class="">
+                            <td scope="row">{{ factura.id }}</td>
+                            <td>{{ factura.numero_factura }}</td>
+                            <td>{{ factura.nombre }}</td>
+                            <td>{{ factura.direccion }}</td>
+                            <td>{{ factura.telefono }}</td>
+                            <td>{{ factura.fecha_nacimineto }}</td>
+                            <td>{{ factura.genero }}</td>
+                            <td>
+                                <a name="" id="" class="btn btn-info" href="{% url 'editar' factura.id %}" role="button">Editar</a>
+                                <a name="" id="" class="btn btn-danger" href="{% url 'eliminar' factura.id %}" role="button">Borrar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div class="card-footer text-muted">
+            
+        </div>
+    </div>
+{% endblock %}
