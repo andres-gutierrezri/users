@@ -1,23 +1,32 @@
 from django.forms import ModelForm
-from .models import Task, Factura, Detalle_Factura, Pago
+from .models import Task, Factura, Detalle_Factura, Pago, Carrito
+
 
 class TaskForm(ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'description', 'important']
-        
+        fields = ["title", "description", "important"]
+
+
 class FacturaForm(ModelForm):
     class Meta:
         model = Factura
-        fields = '__all__'
-        
+        fields = "__all__"
+
+
 class FacturaDetalleForm(ModelForm):
     class Meta:
         model = Detalle_Factura
-        fields = '__all__'
-        
+        fields = "__all__"
+
+
 class PagoDetalleForm(ModelForm):
-    class Meta: 
+    class Meta:
         model = Pago
-        fields = '__all__'
-        
+        fields = "__all__"
+
+
+class CarritoDetalleForm(ModelForm):
+    class Meta:
+        model = Carrito
+        fields = "__all__"
