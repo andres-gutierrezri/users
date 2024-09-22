@@ -40,7 +40,7 @@ SECRET_KEY = 'django-insecure-(oa(omhdw75#3qzk_p-6zfdfmvj#%tn=oci!ww+ssog(ib%-o=
 # Se recomienda que DEBUG sea True en desarrollo
 DEBUG = not IS_DEPLOYED
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0', 'usuarios-tasks.up.railway.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0:8080', 'usuarios-tasks.up.railway.app']
 
 CSRF_TRUSTED_ORIGINS = ['http://*', 'https://usuarios-tasks.up.railway.app']  
 
