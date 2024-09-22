@@ -30,7 +30,7 @@ cd ..
 
 :: Crear Entorno Virtual
 python -m venv .venv
-echo OK
+echo Entorno Virtual Creado
 echo.
 
 echo -----------------------
@@ -39,7 +39,26 @@ echo -----------------------
 
 call .\.venv\Scripts\activate.bat
 
-:: Lista de Paquetes Instalados (PIP Python) 
+:: Verificar si la activación fue correcta comprobando la versión de Python
+python --version
+IF ERRORLEVEL 1 (
+    echo Error: No se pudo activar el entorno virtual de Python
+    exit /b 1
+) ELSE (
+    echo Entorno virtual de Python activado correctamente.
+)
+
+:: Verificar si pip está disponible
+pip --version
+IF ERRORLEVEL 1 (
+    echo Error: pip no esta disponible en el entorno virtual de Python.
+    exit /b 1
+) ELSE (
+    echo pip esta disponible en el entorno virtual de Python.
+)
+
+:: Lista de Paquetes Instalados (PIP Python)
+echo.
 pip list
 echo.
 
