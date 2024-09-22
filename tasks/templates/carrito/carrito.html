@@ -1,0 +1,44 @@
+{% extends "base.html" %}  
+{% load static %}
+
+{% block titulo %}
+    Lista Carrito
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <a name="" id="" class="btn btn-success" href="{% url 'insertar_carrito' %}" role="button">Agregar al Carrito</a>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">Carrito</h4>
+            <div class="table-responsive">
+                <table class="table align-middle table-hover table-bordered table table-striped">
+                    <thead>
+                        <tr class="align-bottom">
+                            <th scope="col">ID Carrito</th>
+                            <th scope="col">Productos</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for carrito in carrito %}
+                        <tr class="">
+                            <td scope="row">{{ carrito.id }}</td>
+                            <td>{{ carrito.productos }}</td>
+                            <td>{{ carrito.fecha }}</td>
+                            <td>
+                                <a name="" id="" class="btn btn-info" href="{% url 'editar_carrito' carrito.id %}" role="button">Editar</a>
+                                <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_carrito' carrito.id %}" role="button">Borrar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div> 
+        </div>
+        <div class="card-footer text-muted">
+        </div>
+    </div>
+{% endblock %}

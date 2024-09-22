@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Signin</h1>
+<h1>Iniciar Sesión</h1>
 
 <p>
 {{error}}
@@ -10,9 +10,9 @@
 
 <form action="/signin/" method="POST">
   {% csrf_token %}
-  {{form.as_p}}
+  {{formulario.as_p}}
   <button>
-    Signin
+    Iniciar Sesión
   </button>
 </form>
 

@@ -1,17 +1,17 @@
 {% extends "base.html" %}  
 
 {% block titulo %}
-    Agregar Nuevo Detalle de Factura
+    Editar Pedido
 {% endblock %}
 
 {% block content %}
     <div class="card">
         <div class="card-header">
-            Crear Detalle de Factura 
+            Editar Información del Pedido
         </div>
         <div class="card-body">
-            <h4 class="card-title">Datos Detalle de Factura</h4>
-            {% include 'crud_detalle_factura/formulario_factura_detalle.html' %}
+            <h4 class="card-title">Datos del Pedido</h4>
+            {% include 'pedido/formulario_pedido.html' %}
         </div>
         <div class="card-footer text-muted">
         </div>

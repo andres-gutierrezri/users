@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Task, Factura, Detalle_Factura, Pago, Carrito
+from .models import Task, Factura, Detalle_Factura, Pago, Carrito, Pedido
 
 
 class TaskForm(ModelForm):
@@ -26,7 +26,13 @@ class PagoDetalleForm(ModelForm):
         fields = "__all__"
 
 
-class CarritoDetalleForm(ModelForm):
+class CarritoForm(ModelForm):
     class Meta:
         model = Carrito
+        fields = "__all__"
+
+
+class PedidoForm(ModelForm):
+    class Meta:
+        model = Pedido
         fields = "__all__"

@@ -1,20 +1,19 @@
 {% extends "base.html" %}  
 
 {% block titulo %}
-    Agregar al carrito
+    Editar Carrito
 {% endblock %}
 
 {% block content %}
     <div class="card">
         <div class="card-header">
-            Insertar al Carrito
+            Editar Información del Carrito 
         </div>
         <div class="card-body">
-            <h4 class="card-title">Carrito de Compras</h4>
-            {% include 'carrito/formulario_carrito_detalle.html' %}
+            <h4 class="card-title">Datos del Carrito</h4>
+            {% include 'carrito/formulario_carrito.html' %}
         </div>
         <div class="card-footer text-muted">
-            
         </div>
     </div>
 {% endblock %}

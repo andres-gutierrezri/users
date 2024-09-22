@@ -1,17 +1,17 @@
 {% extends "base.html" %}  
 
 {% block titulo %}
-    Agregar Nuevo Detalle de Factura
+    Agregar al Carrito
 {% endblock %}
 
 {% block content %}
     <div class="card">
         <div class="card-header">
-            Crear Detalle de Factura 
+            Crear Carrito
         </div>
         <div class="card-body">
-            <h4 class="card-title">Datos Detalle de Factura</h4>
-            {% include 'crud_detalle_factura/formulario_factura_detalle.html' %}
+            <h4 class="card-title">Datos del Carrito</h4>
+            {% include 'carrito/formulario_carrito.html' %}
         </div>
         <div class="card-footer text-muted">
         </div>

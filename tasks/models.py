@@ -16,9 +16,6 @@ class Task(models.Model):
         return self.title + " - " + self.user.username
 
 
-# Create your models here.
-
-
 class Factura(models.Model):
     numero_factura = models.IntegerField(null=False, blank=False)
     nombre = models.TextField(max_length=100)
@@ -58,8 +55,21 @@ class Pago(models.Model):
 
 
 class Carrito(models.Model):
-    producto = models.TextField(max_length=100)
+    productos = models.TextField(max_length=100)
+    fecha = models.DateTimeField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.producto + " - " + self.user.username
+        return self.productos + " - " + self.user.username
+
+
+class Pedido(models.Model):
+    nombre = models.TextField(max_length=100)
+    descripcion = models.TextField(max_length=100)
+    precio = models.IntegerField(null=False, blank=False)
+    categoria = models.TextField(max_length=100)
+    fecha = models.DateTimeField(null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre + " - " + self.user.username

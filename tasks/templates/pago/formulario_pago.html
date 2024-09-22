@@ -1,6 +1,6 @@
 <form enctype="multipart/form-data" method="post">
     {% csrf_token %}
-    <!--sacamos formulario_detalle de editar en las vistas -->
+    <!-- sacamos formulario_pago de editar en las vistas -->
     {% for campo in formulario_pago %}
       <div class="mb-3">
         <label for="" class="form-label">{{ campo.label }}:</label>
@@ -13,7 +13,7 @@
       </div>
       <div class="col-12 help-text"> {{ campo.errors }} </div>
     {% endfor %}
-    <!-- sacamos  factura_detalle  de las urls-->
+    <!-- sacamos pago_consulta de las urls-->
     <input name="" id="" class="btn btn-success" type="submit" value="Enviar Información">
     <a name="" id="" class="btn btn-danger" href="{% url 'pago_consulta' %}" role="button">Cancelar</a>
   </form>

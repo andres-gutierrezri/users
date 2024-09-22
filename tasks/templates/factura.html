@@ -7,25 +7,22 @@
 {% block content %}
     <div class="card">
         <div class="card-header">
-            <a name="" id="" class="btn btn-success" href="{% url 'factura_crear' %}" role="button">Agregar Nueva  factura </a>
+            <a name="" id="" class="btn btn-success" href="{% url 'factura_crear' %}" role="button">Agregar Nueva Factura</a>
         </div>
-        
         <div class="card-body">
-            <h4 class="card-title">facturas </h4>
-            
+            <h4 class="card-title">Facturas</h4>
             <div class="table-responsive">
                 <table class="table align-middle table-hover table-bordered table table-striped">
                     <thead>
                         <tr class="align-bottom">
-                            <th scope="col">id factura</th>
-                            <th scope="col">numero factura</th>
-                            <th scope="col">nombre</th>
-                            <th scope="col">direccion</th>
-                            <th scope="col">telefono</th>
-                            <th scope="col">fecha nacimiento</th>
-                            <th scope="col">genero</th>
-                            <th scope="col">editar</th>
-                           
+                            <th scope="col">ID Factura</th>
+                            <th scope="col">Número de Factura</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Dirección</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">Fecha de Nacimiento</th>
+                            <th scope="col">Genero</th>
+                            <th scope="col">Editar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,10 +44,8 @@
                     </tbody>
                 </table>
             </div>
-            
         </div>
         <div class="card-footer text-muted">
-            
         </div>
     </div>
 {% endblock %}

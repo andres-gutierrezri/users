@@ -1,30 +1,28 @@
 {% extends "base.html" %}  
 
 {% block titulo %}
-    Lista de pagos
+    Lista de Pagos
 {% endblock %}
 
 {% block content %}
     <div class="card">
         <div class="card-header">
-            <a name="" id="" class="btn btn-success" href="{% url 'pago_insertar' %}" role="button">Agregar Nueva  pagos </a>
+            <a name="" id="" class="btn btn-success" href="{% url 'pago_insertar' %}" role="button">Agregar Nuevo Pago</a>
         </div>
         
         <div class="card-body">
             <h4 class="card-title">pago </h4>
-            
             <div class="table-responsive">
                 <table class="table align-middle table-hover table-bordered table table-striped">
                     <thead>
                         <tr class="align-bottom">
-                            <th scope="col">id pago</th>
-                            <th scope="col">numero de pago</th>
-                            <th scope="col">forma de pago</th>
-                            <th scope="col">cantidad</th>
-                            <th scope="col">fecha</th>
-                            <th scope="col">total</th>
-                            <th scope="col">editar</th>
-                           
+                            <th scope="col">ID Pago</th>
+                            <th scope="col">Numero de Pago</th>
+                            <th scope="col">Forma de Pago</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Editar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,10 +43,8 @@
                     </tbody>
                 </table>
             </div>
-            
         </div>
         <div class="card-footer text-muted">
-            
         </div>
     </div>
 {% endblock %}

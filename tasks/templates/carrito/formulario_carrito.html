@@ -1,7 +1,7 @@
-<form enctype="multipart/form-data" method="post">
+<form enctype="multipart/form-data" method="post" id="modal-form">
     {% csrf_token %}
-    <!--sacamos formulario_detalle de editar en las vistas -->
-    {% for campo in carrito_formulario %}
+    <!-- sacamos formulario de editar en las vistas -->
+    {% for campo in formulario %}
       <div class="mb-3">
         <label for="" class="form-label">{{ campo.label }}:</label>
         {% if campo.field.widget.input_type == 'file' and campo.value %}
@@ -13,7 +13,7 @@
       </div>
       <div class="col-12 help-text"> {{ campo.errors }} </div>
     {% endfor %}
-    <!-- sacamos  factura_detalle  de las urls-->
-    <input name="" id="" class="btn btn-success" type="submit" value="Enviar Información">
-    <a name="" id="" class="btn btn-danger" href="{% url 'carrito_detalle' %}" role="button">Cancelar</a>
-  </form>
+    <!-- sacamos consulta_carrito de las urls-->
+      <input name="" id="" class="btn btn-success" type="submit" value="Enviar Información">
+      <a name="" id="" class="btn btn-danger" href="{% url 'consulta_carrito' %}" role="button">Cancelar</a>
+</form>

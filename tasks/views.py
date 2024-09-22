@@ -5,17 +5,45 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from .models import Task, Factura, Detalle_Factura, Pago, Carrito
-from .forms import FacturaForm, FacturaDetalleForm, PagoDetalleForm, CarritoDetalleForm
+from .models import (
+    Task,
+    Factura,
+    Detalle_Factura,
+    Pago,
+    Carrito,
+    Pedido,
+)
+from .forms import (
+    FacturaForm,
+    FacturaDetalleForm,
+    PagoDetalleForm,
+    CarritoForm,
+    PedidoForm,
+)
 
 
 from .forms import TaskForm
 
-
 # Create your views here.
+
+
+# ---------------------------------------------------------------------------------
+# Home
+# ---------------------------------------------------------------------------------
+
+
+def home(request):
+    return render(request, "home.html")
+
+
+# ---------------------------------------------------------------------------------
+# Registro
+# ---------------------------------------------------------------------------------
+
+
 def signup(request):
     if request.method == "GET":
-        return render(request, "signup.html", {"form": UserCreationForm})
+        return render(request, "signup.html", {"formulario": UserCreationForm})
     else:
 
         if request.POST["password1"] == request.POST["password2"]:
@@ -30,14 +58,22 @@ def signup(request):
                 return render(
                     request,
                     "signup.html",
-                    {"form": UserCreationForm, "error": "Username already exists."},
+                    {
+                        "formulario": UserCreationForm,
+                        "error": "Username already exists.",
+                    },
                 )
 
         return render(
             request,
             "signup.html",
-            {"form": UserCreationForm, "error": "Passwords did not match."},
+            {"formulario": UserCreationForm, "error": "Passwords did not match."},
         )
+
+
+# ---------------------------------------------------------------------------------
+# Tareas
+# ---------------------------------------------------------------------------------
 
 
 @login_required
@@ -57,11 +93,11 @@ def tasks_completed(request):
 @login_required
 def create_task(request):
     if request.method == "GET":
-        return render(request, "create_task.html", {"form": TaskForm})
+        return render(request, "create_task.html", {"formulario": TaskForm})
     else:
         try:
-            form = TaskForm(request.POST)
-            new_task = form.save(commit=False)
+            formulario = TaskForm(request.POST)
+            new_task = formulario.save(commit=False)
             new_task.user = request.user
             new_task.save()
             return redirect("tasks")
@@ -69,12 +105,13 @@ def create_task(request):
             return render(
                 request,
                 "create_task.html",
-                {"form": TaskForm, "error": "Error creating task."},
+                {"formulario": TaskForm, "error": "Error creating task."},
             )
 
 
-def home(request):
-    return render(request, "home.html")
+# ---------------------------------------------------------------------------------
+# Login y Logout
+# ---------------------------------------------------------------------------------
 
 
 @login_required
@@ -85,7 +122,7 @@ def signout(request):
 
 def signin(request):
     if request.method == "GET":
-        return render(request, "signin.html", {"form": AuthenticationForm})
+        return render(request, "signin.html", {"formulario": AuthenticationForm})
     else:
         user = authenticate(
             request,
@@ -97,7 +134,7 @@ def signin(request):
                 request,
                 "signin.html",
                 {
-                    "form": AuthenticationForm,
+                    "formulario": AuthenticationForm,
                     "error": "Username or password is incorrect.",
                 },
             )
@@ -106,23 +143,34 @@ def signin(request):
         return redirect("tasks")
 
 
+# ---------------------------------------------------------------------------------
+# Tarea Detalle
+# ---------------------------------------------------------------------------------
+
+
 @login_required
 def task_detail(request, task_id):
     if request.method == "GET":
         task = get_object_or_404(Task, pk=task_id, user=request.user)
-        form = TaskForm(instance=task)
-        return render(request, "task_detail.html", {"task": task, "form": form})
+        formulario = TaskForm(instance=task)
+        return render(
+            request, "task_detail.html", {"task": task, "formulario": formulario}
+        )
     else:
         try:
             task = get_object_or_404(Task, pk=task_id, user=request.user)
-            form = TaskForm(request.POST, instance=task)
-            form.save()
+            formulario = TaskForm(request.POST, instance=task)
+            formulario.save()
             return redirect("tasks")
         except ValueError:
             return render(
                 request,
                 "task_detail.html",
-                {"task": task, "form": form, "error": "Error updating task."},
+                {
+                    "task": task,
+                    "formulario": formulario,
+                    "error": "Error updating task.",
+                },
             )
 
 
@@ -141,6 +189,11 @@ def delete_task(request, task_id):
     if request.method == "POST":
         task.delete()
         return redirect("tasks")
+
+
+# ---------------------------------------------------------------------------------
+# Facturas
+# ---------------------------------------------------------------------------------
 
 
 @login_required
@@ -177,8 +230,12 @@ def eliminar(request, id):
     return redirect("facturas")
 
 
+# ---------------------------------------------------------------------------------
+# Detalle Factura
+# ---------------------------------------------------------------------------------
+
+
 @login_required
-# leer  los  datos
 def detalle_factura(request):
     factura_detalle = Detalle_Factura.objects.all()
     return render(
@@ -224,8 +281,12 @@ def detalle_factura_eliminar(request, id):
     return redirect("factura_detalle")
 
 
+# ---------------------------------------------------------------------------------
+# Pagos
+# ---------------------------------------------------------------------------------
+
+
 @login_required
-# leer  los  datos  de pago
 def pago_consulta(request):
     pago_detalle = Pago.objects.all()
     return render(request, "pago/pago_detalle.html", {"pago_detalle": pago_detalle})
@@ -261,46 +322,79 @@ def pago_eliminar(request, id):
     return redirect("pago_consulta")
 
 
-@login_required
-# leer  los  datos
-def carrito_detalle(request):
-    carrito_detalle = Carrito.objects.all()
-    return render(
-        request, "carrito/carrito_detalle.html", {"carrito_detalle": carrito_detalle}
-    )
+# ---------------------------------------------------------------------------------
+# Carrito
+# ---------------------------------------------------------------------------------
 
 
 @login_required
-def carrito_insertar(request):
-    carrito_formulario = CarritoDetalleForm(request.POST or None, request.FILES or None)
-    if carrito_formulario.is_valid():
-        carrito_formulario.save()
-        return redirect("carrito_detalle")
-    return render(
-        request,
-        "carrito/carrito_insertar.html",
-        {"carrito_formulario": carrito_formulario},
-    )
+def carrito(request):
+    carrito = Carrito.objects.all()
+    return render(request, "carrito/carrito.html", {"carrito": carrito})
 
 
 @login_required
-def carrito_actualizar(request, id):
-    carrito_detalle = Carrito.objects.get(id=id)
-    carrito_formulario = CarritoDetalleForm(
-        request.POST or None, request.FILES or None, instance=carrito_detalle
-    )
-    if carrito_formulario.is_valid() and request.POST:
-        carrito_formulario.save()
-        return redirect("carrito_detalle")
-    return render(
-        request,
-        "carrito/carrito_editar.html",
-        {"carrito_formulario": carrito_formulario},
-    )
+def crear_carrito(request):
+    formulario = CarritoForm(request.POST or None, request.FILES or None)
+    if formulario.is_valid():
+        formulario.save()
+        return redirect("consulta_carrito")
+    return render(request, "carrito/crear_carrito.html", {"formulario": formulario})
 
 
 @login_required
-def carrito_eliminar(request, id):
-    carrito_detalle = Carrito.objects.get(id=id)
-    carrito_detalle.delete()
-    return redirect("carrito_detalle")
+def editar_carrito(request, id):
+    carrito = Carrito.objects.get(id=id)
+    formulario = CarritoForm(
+        request.POST or None, request.FILES or None, instance=carrito
+    )
+    if formulario.is_valid() and request.POST:
+        formulario.save()
+        return redirect("consulta_carrito")
+    return render(request, "carrito/editar_carrito.html", {"formulario": formulario})
+
+
+@login_required
+def eliminar_carrito(request, id):
+    carrito = Carrito.objects.get(id=id)
+    carrito.delete()
+    return redirect("consulta_carrito")
+
+
+# ---------------------------------------------------------------------------------
+# Pedido
+# ---------------------------------------------------------------------------------
+
+
+@login_required
+def pedido(request):
+    pedido = Pedido.objects.all()
+    return render(request, "pedido/pedido.html", {"pedido": pedido})
+
+
+@login_required
+def crear_pedido(request):
+    formulario = PedidoForm(request.POST or None, request.FILES or None)
+    if formulario.is_valid():
+        formulario.save()
+        return redirect("consulta_pedido")
+    return render(request, "pedido/crear_pedido.html", {"formulario": formulario})
+
+
+@login_required
+def editar_pedido(request, id):
+    pedido = Pedido.objects.get(id=id)
+    formulario = PedidoForm(
+        request.POST or None, request.FILES or None, instance=pedido
+    )
+    if formulario.is_valid() and request.POST:
+        formulario.save()
+        return redirect("consulta_pedido")
+    return render(request, "pedido/editar_pedido.html", {"formulario": formulario})
+
+
+@login_required
+def eliminar_pedido(request, id):
+    pedido = Pedido.objects.get(id=id)
+    pedido.delete()
+    return redirect("consulta_pedido")
