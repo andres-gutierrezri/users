@@ -1,9 +1,9 @@
 -- INSERTAR LIBROS
 
 -- SELECCIONAR BASE DE DATOS
-USE CRUD_django;
+USE USUARIOS;
 
-SET NAMES utf8;
+SET NAMES utf8mb4;
 
 -- SELECCIONAR TABLA
 SELECT * FROM tasks_factura ORDER BY numero_factura asc;
